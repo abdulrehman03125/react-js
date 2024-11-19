@@ -13,6 +13,11 @@ function App() {
     setItems(newItems);
   };
   const addItem = () => {
+    {
+      if (name == "") {
+        return;
+      }
+    }
     const newItemsAr = [...items, name];
     setItems(newItemsAr);
     setName("");
@@ -25,6 +30,12 @@ function App() {
 
   const updateItem = (index) => {
     // alert("anchor")
+    {
+      if (name == "") {
+        return;
+      }
+    }
+
     const updateItems = items.map((el, i) => (i == currentIndex) ? name : el);
     setItems(updateItems);
     setName("");
