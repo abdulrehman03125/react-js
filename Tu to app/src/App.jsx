@@ -3,7 +3,7 @@ import './App.css'
 import Listitem from './components/Listitem';
 
 function App() {
-  const [items, setItems] = useState(['apple', 'banana']);
+  const [items, setItems] = useState([]);
   const [name, setName] = useState("");
 
   const deleteItem = (index) => {
