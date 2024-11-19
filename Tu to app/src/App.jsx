@@ -69,7 +69,7 @@ function App() {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Item Name</th>
-            <th scope="col">Actions Delete</th>
+            <th scope="col">Actions </th>
           </tr>
         </thead>
         <tbody>
