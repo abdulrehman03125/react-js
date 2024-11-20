@@ -34,6 +34,7 @@ function App() {
       if (name == "") {
         return;
       }
+      
     }
 
     const updateItems = items.map((el, i) => (i == currentIndex) ? name : el);
@@ -42,6 +43,11 @@ function App() {
     setEditing(false);
     setCurrentIndex(null);
   };
+  const handleeneter = (e) => {
+    if (e.key == "Enter") {
+      {editing == true ? updateItem() : addItem() };
+  }
+}
 
  
 
@@ -50,6 +56,7 @@ function App() {
       <div className="d-flex gap-2 mb-3">
         <input
           className="form-control"
+          onKeyUp={handleeneter}
           onChange={(e) => {
             setName(e.target.value);
           }}
