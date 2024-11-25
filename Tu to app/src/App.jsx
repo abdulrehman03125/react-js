@@ -14,9 +14,11 @@ function App() {
   };
   const addItem = () => {
     {
-      if (name == "") {
+
+      if (name == "" || name.length < 3) {
         return;
       }
+      confirm("Please enter");
     }
     const newItemsAr = [...items, name];
     setItems(newItemsAr);
@@ -31,10 +33,11 @@ function App() {
   const updateItem = (index) => {
     // alert("anchor")
     {
-      if (name == "") {
+      if (name == "" || name.length < 3 ) {
         return;
       }
-      
+      confirm("update item")
+
     }
 
     const updateItems = items.map((el, i) => (i == currentIndex) ? name : el);
@@ -43,20 +46,22 @@ function App() {
     setEditing(false);
     setCurrentIndex(null);
   };
-  const handleeneter = (e) => {
-    if (e.key == "Enter") {
-      {editing == true ? updateItem() : addItem() };
-  }
-}
 
- 
+  const handleEntrePress =  (e) => {
+    if(e.key == "Enter") {
+      editing == true ? updateItem() : addItem()
+    }
+    
+    
+
+} 
 
   return (
     <div>
       <div className="d-flex gap-2 mb-3">
         <input
+        onKeyUp={handleEntrePress}
           className="form-control"
-          onKeyUp={handleeneter}
           onChange={(e) => {
             setName(e.target.value);
           }}
