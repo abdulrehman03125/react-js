@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
 function IncomeModal({isIncomModalOpen, handleIncomModalClose, handleIncome, }) {
+
+
+
     const [amount, setAmount] = useState(0);
     if (isIncomModalOpen == false) {
         return null;
