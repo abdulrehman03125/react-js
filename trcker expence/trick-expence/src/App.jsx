@@ -4,10 +4,17 @@ import IncomeModal from "./components/IncomeModal";
 import ExpenseModal from "./components/ExpenseModal";
 
 function App() {
-  const [income, setIncome] = useState(0);
+  const [income, setIncome] = useState(() => {
+    const income = localStorage.getItem("income");
+    return income ? JSON.parse(income) : 0;
+  });
+  const [expenses, setExpenses] = useState(() => {
+    const expenses = localStorage.getItem("expenses");
+    return expenses ? JSON.parse(expenses) : [];
+  });
+
   const [balance, setBalance] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-  const [expenses, setExpenses] = useState([]);
   const [isIncomModalOpen, setIsIncomModalOpen] = useState(false);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
   const [Edit, setEdit] = useState(false);
@@ -35,6 +42,7 @@ function App() {
   const addExpense = (expense) => {
     const newExpAr = [...expenses, expense];
     setExpenses(newExpAr);
+    closeExpenseModal();
   };
   const handleexpense = (amount, description, category) => {
     setBalance(balance - amount);
@@ -44,17 +52,21 @@ function App() {
     const newItems = expenses.filter((el, i) => i != index);
     setExpenses(newItems);
   };
+
   const handleEdit = (index) => {
     setEdit(index);
     setIsExpenseModalOpen(true);
+
+    console.log('handleEdit', index);
   };
-  // const handleUpdate = (amount, description, category, index) => {
-  //   const newItems = expenses.map((item, i) =>
-  //     i === index? { amount, description, category } : item,
-  //   );
-  //   setExpenses(newItems);
-  //   setIsExpenseModalOpen(false);
-  // };
+  const handleUpdate = (amount, description, category, index) => {
+    const updatedExpenses = expenses.map((expense, i) =>
+      i === index ? { amount, description, category } : expense
+    );
+    setExpenses(updatedExpenses);
+    setIsExpenseModalOpen(false);
+    setEdit(false);
+  };
 
   useEffect(() => {
     let totalExpense = 0;
@@ -71,8 +83,10 @@ function App() {
     // const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     // setTotalExpense(totalExpenses);
     // setBalance(income - totalExpenses);
-  }, [income, expenses]);
 
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+    localStorage.setItem("income", JSON.stringify(income));
+  }, [income, expenses]);
 
   return (
     <>
@@ -112,7 +126,10 @@ function App() {
                 closeExpenseModal={closeExpenseModal}
                 handleDelete={handleDelete}
                 handleexpense={handleexpense}
+                handleUpdate={handleUpdate}
                 handleEdit={handleEdit}
+                editIndex={Edit}
+                expenseToEdit={Edit !== false ? expenses[Edit] : null}
               />
             </div>
           </div>
@@ -148,7 +165,6 @@ function App() {
                       >
                         Edit
                       </button>
-
                     </td>
                   </tr>
                 );
