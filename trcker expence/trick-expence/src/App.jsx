@@ -2,8 +2,33 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import IncomeModal from "./components/IncomeModal";
 import ExpenseModal from "./components/ExpenseModal";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+
+
+
+  const addincome  = () => toast.success('🦄 Wow so easy!', {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "light"
+    });
+  const deleteexpence = () => toast("sucessfully deleted so easy expence!",{
+    position: "top-right",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+
   const [income, setIncome] = useState(() => {
     const income = localStorage.getItem("income");
     return income ? JSON.parse(income) : 0;
@@ -30,6 +55,7 @@ function App() {
   const handleIncome = (amount) => {
     setIncome(income + +amount);
     handleIncomModalClose();
+    addincome();
   };
 
   const openExpenseModal = () => {
@@ -51,6 +77,8 @@ function App() {
   const handleDelete = (index) => {
     const newItems = expenses.filter((el, i) => i != index);
     setExpenses(newItems);
+    deleteexpence();
+    
   };
 
   const handleEdit = (index) => {
@@ -88,9 +116,11 @@ function App() {
     localStorage.setItem("income", JSON.stringify(income));
   }, [income, expenses]);
 
+  
   return (
     <>
       <div className="container">
+      {/* <button onClick={notify}>Notify!</button> */}
         <div className="bg-dark text-white p-3">
           <h1 className="text-center mb-5">Expense Tracker</h1>
           <div className="row">
@@ -173,6 +203,7 @@ function App() {
           </table>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

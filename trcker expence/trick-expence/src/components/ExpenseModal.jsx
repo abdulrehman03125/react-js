@@ -14,6 +14,14 @@ function ExpenseModal({ isExpenseModalOpen, closeExpenseModal, addExpense }) {
 
     const handleSubmit = () => {
         addExpense(expense);
+
+
+        // if (editIndex !== false) {
+        //     handleUpdate(amount, description, category);
+        //   } else {
+        //     addExpense({ amount, description, category });
+        //   }
+        //   closeExpenseModal();
     }
 
     return (
