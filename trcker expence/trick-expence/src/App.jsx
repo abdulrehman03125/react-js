@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import IncomeModal from "./components/IncomeModal";
 import ExpenseModal from "./components/ExpenseModal";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
     draggable: true,
     progress: undefined,
     theme: "light",
+    transition: Slide,
     });
 
   const [income, setIncome] = useState(() => {
